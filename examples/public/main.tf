@@ -34,7 +34,7 @@ module "aws_es" {
     instance_type            = "r4.large.elasticsearch"
     zone_awareness_enabled   = false
     zone_awareness_config = {
-      availability_zone_count  = "1"
+      availability_zone_count = "1"
     }
   }
 
@@ -60,7 +60,7 @@ module "aws_es" {
     whitelist   = "${jsonencode(var.whitelist)}"
   })
 
-  node_to_node_encryption                = {
+  node_to_node_encryption = {
     enabled = true
   }
   snapshot_options = {

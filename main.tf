@@ -26,7 +26,7 @@ resource "aws_elasticsearch_domain" "this" {
 
   # advanced_security_options
   dynamic "advanced_security_options" {
-    for_each = length(keys(var.advanced_security_options)) == 0 ? [ ] : [var.advanced_security_options]
+    for_each = length(keys(var.advanced_security_options)) == 0 ? [] : [var.advanced_security_options]
     content {
       enabled                        = lookup(advanced_security_options.value, "enabled")
       internal_user_database_enabled = lookup(advanced_security_options.value, "internal_user_database_enabled", false)
@@ -51,7 +51,7 @@ resource "aws_elasticsearch_domain" "this" {
 
   # ebs_options
   dynamic "ebs_options" {
-    for_each = length(keys(var.ebs_options)) == 0 ? [ ] : [var.ebs_options]
+    for_each = length(keys(var.ebs_options)) == 0 ? [] : [var.ebs_options]
     content {
       ebs_enabled = lookup(ebs_options.value, "ebs_enabled", true)
       volume_type = lookup(ebs_options.value, "volume_type", "gp2")
@@ -94,7 +94,7 @@ resource "aws_elasticsearch_domain" "this" {
 
       dynamic "zone_awareness_config" {
         # cluster_availability_zone_count valid values: 2 or 3.
-        for_each = lookup(cluster_config.value, "zone_awareness_enabled", false) == false  ? [ ] : [ lookup(cluster_config.value, "zone_awareness_config", {})]
+        for_each = lookup(cluster_config.value, "zone_awareness_enabled", false) == false ? [] : [lookup(cluster_config.value, "zone_awareness_config", {})]
         content {
           availability_zone_count = lookup(zone_awareness_config.value, "availability_zone_count")
         }
@@ -104,7 +104,7 @@ resource "aws_elasticsearch_domain" "this" {
 
   # snapshot_options
   dynamic "snapshot_options" {
-    for_each = length(keys(var.snapshot_options)) == 0 ? [ ] : [var.snapshot_options]
+    for_each = length(keys(var.snapshot_options)) == 0 ? [] : [var.snapshot_options]
     content {
       automated_snapshot_start_hour = lookup(snapshot_options.value, "automated_snapshot_start_hour")
     }
@@ -112,7 +112,7 @@ resource "aws_elasticsearch_domain" "this" {
 
   # vpc_options
   dynamic "vpc_options" {
-    for_each = length(keys(var.vpc_options)) == 0 ? [ ]: [var.vpc_options]
+    for_each = length(keys(var.vpc_options)) == 0 ? [] : [var.vpc_options]
     content {
       security_group_ids = lookup(vpc_options.value, "security_group_ids", [])
       subnet_ids         = lookup(vpc_options.value, "subnet_ids")
@@ -125,7 +125,7 @@ resource "aws_elasticsearch_domain" "this" {
     for_each = var.log_publishing_options
     content {
       log_type                 = lookup(log_publishing_options.value, "log_type", "AUDIT_LOGS")
-      cloudwatch_log_group_arn = var.cloudwatch_log_group_arn == "" ? join("",aws_cloudwatch_log_group.this.*.arn) : var.cloudwatch_log_group_arn
+      cloudwatch_log_group_arn = var.cloudwatch_log_group_arn == "" ? join("", aws_cloudwatch_log_group.this.*.arn) : var.cloudwatch_log_group_arn
       enabled                  = lookup(log_publishing_options.value, "enabled", true)
     }
   }

@@ -35,7 +35,7 @@ module "aws_es" {
     instance_type            = "r4.large.elasticsearch"
     zone_awareness_enabled   = true
     zone_awareness_config = {
-      availability_zone_count  = "3"
+      availability_zone_count = "3"
     }
   }
 
@@ -54,7 +54,7 @@ module "aws_es" {
     security_group_ids = ["sg-011d77df254f4bb2f"]
   }
 
-  node_to_node_encryption                = {
+  node_to_node_encryption = {
     enabled = true
   }
   snapshot_options = {
