@@ -24,7 +24,7 @@ variable "access_policies" {
 
 # Advanced security options
 variable "advanced_security_options" {
-  type        = map
+  type        = any
   description = " (Optional) Options for fine-grained access control."
   default = {
 
@@ -52,7 +52,7 @@ variable "advanced_options" {
 
 # ebs_options
 variable "ebs_options" {
-  type        = map
+  type        = any
   description = "(Optional) EBS related options, may be required based on chosen instance size."
   default = {
     ebs_enabled = true
@@ -64,7 +64,7 @@ variable "ebs_options" {
 
 # encrypt_at_rest
 variable "encrypt_at_rest" {
-  type        = map
+  type        = any
   description = "Optional) Encrypt at rest options. Only available for certain instance types."
   default = {
     enabled = true
@@ -73,7 +73,7 @@ variable "encrypt_at_rest" {
 
 # node_to_node_encryption
 variable "node_to_node_encryption" {
-  type        = map
+  type        = any
   description = "(Optional) Node-to-node encryption options."
   default = {
     enabled = false
@@ -100,7 +100,7 @@ variable "cloudwatch_log_kms_key_id" {
 # cluster_config 
 variable "cluster_config" {
   description = "(Optional) Cluster configuration of the domain"
-  type        = map
+  type        = any
   default = {
     "instance_type"            = "r5.large.elasticsearch"
     "instance_count"           = 3
@@ -114,7 +114,7 @@ variable "cluster_config" {
 # snapshot_options
 variable "snapshot_options" {
   description = "(Optional) Snapshot related options"
-  type        = map
+  type        = any
   default = {
 
   }
@@ -123,7 +123,7 @@ variable "snapshot_options" {
 # vpc_options
 variable "vpc_options" {
   description = "(Optional) VPC related options, Adding or removing this configuration forces a new resource"
-  type        = map
+  type        = any
   default = {
 
   }
@@ -134,9 +134,6 @@ variable "log_publishing_options" {
   description = "(Optional) Options for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log_type, within the same resource."
   type        = any
   default = [
-    {
-      log_type = "AUDIT_LOGS"
-    },
     {
       log_type = "INDEX_SLOW_LOGS"
     },
@@ -152,9 +149,8 @@ variable "log_publishing_options" {
 # cognito_options  
 variable "cognito_options" {
   description = "(Optional) Options for Amazon Cognito Authentication for Kibana"
-  type        = map
+  type        = any
   default = {
-    enabled = false
   }
 }
 variable "tags" {
@@ -168,7 +164,7 @@ variable "tags" {
 # Timeouts
 variable "timeouts" {
   description = "Timeouts map."
-  type        = map
+  type        = any
   default = {
 
   }
